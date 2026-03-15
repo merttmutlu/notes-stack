@@ -26,6 +26,8 @@ go.work.sum
 
 # env file
 .env
+deploy/compose/data/*
+!deploy/compose/data/.gitkeep
 
 # Editor/IDE
 # .idea/
