@@ -101,3 +101,32 @@ curl -i -X DELETE localhost:8080/api/v1/notes/<note-id>
 ```bash
 task postgres:down
 ```
+
+## Local Frontend Flow
+
+The frontend is a React app built with Vite under [apps/web](/Users/mertmutlu/Documents/GitHub/notes-stack/apps/web).
+
+### 1. Install Dependencies
+
+```bash
+task web:install
+```
+
+### 2. Run the Frontend
+
+```bash
+task web:run
+```
+
+The frontend expects:
+
+- `VITE_API_BASE_URL=` for local development through the Vite proxy
+- `VITE_API_BASE_URL=http://localhost:8080` if you explicitly want direct API calls outside the dev proxy
+
+Vite reads local frontend env files from `apps/web`, for example [apps/web/.env.local.example](/Users/mertmutlu/Documents/GitHub/notes-stack/apps/web/.env.local.example).
+
+See also [env/web.env.example](/Users/mertmutlu/Documents/GitHub/notes-stack/env/web.env.example) for the documented variable list.
+
+### 3. Open the App
+
+By default, Vite serves the app on `http://localhost:5173`.

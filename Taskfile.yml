@@ -30,3 +30,15 @@ tasks:
       DATABASE_URL: postgres://notes:notes@localhost:5432/notes_stack?sslmode=disable
     cmds:
       - go run ./cmd/api
+
+  web:install:
+    desc: Install frontend dependencies
+    dir: apps/web
+    cmds:
+      - npm install
+
+  web:run:
+    desc: Run the frontend locally
+    dir: apps/web
+    cmds:
+      - npm run dev -- --host 0.0.0.0

@@ -26,6 +26,9 @@ go.work.sum
 
 # env file
 .env
+apps/web/.env.local
+node_modules/
+dist/
 deploy/compose/data/*
 !deploy/compose/data/.gitkeep
 
