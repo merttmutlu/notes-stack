@@ -1,6 +1,21 @@
 version: "3"
 
 tasks:
+  compose:up:
+    desc: Start the full local stack with Docker Compose
+    cmds:
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example up -d --build
+
+  compose:down:
+    desc: Stop the full local stack with Docker Compose
+    cmds:
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example down
+
+  compose:logs:
+    desc: Show logs for the full local stack
+    cmds:
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example logs -f
+
   postgres:up:
     desc: Start the local Postgres service with Docker Compose
     cmds:

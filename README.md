@@ -130,3 +130,31 @@ See also [env/web.env.example](/Users/mertmutlu/Documents/GitHub/notes-stack/env
 ### 3. Open the App
 
 By default, Vite serves the app on `http://localhost:5173`.
+
+## Local Compose Stack
+
+The full stack can also run with Docker Compose:
+
+- PostgreSQL on `localhost:5432`
+- API on `localhost:8080`
+- Web on `http://localhost:3000`
+
+Start the stack:
+
+```bash
+task compose:up
+```
+
+Apply migrations:
+
+```bash
+task postgres:migrate
+```
+
+Open the frontend at `http://localhost:3000`.
+
+Stop the stack:
+
+```bash
+task compose:down
+```
