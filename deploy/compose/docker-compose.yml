@@ -4,7 +4,7 @@ services:
     container_name: notes-stack-postgres
     restart: unless-stopped
     env_file:
-      - ../../env/postgres.env.example
+      - ../../env/postgres.env
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
@@ -22,13 +22,13 @@ services:
     container_name: notes-stack-api
     restart: unless-stopped
     environment:
-      PORT: "8080"
-      DATABASE_URL: postgres://notes:notes@postgres:5432/notes_stack?sslmode=disable
+      PORT: "${PORT}"
+      DATABASE_URL: "${DATABASE_URL}"
     depends_on:
       postgres:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
 
   web:
     build:

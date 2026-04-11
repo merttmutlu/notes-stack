@@ -4,45 +4,44 @@ tasks:
   compose:up:
     desc: Start the full local stack with Docker Compose
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example up -d --build
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env --env-file env/api.env up -d --build
 
   compose:down:
     desc: Stop the full local stack with Docker Compose
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example down
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env --env-file env/api.env down
 
   compose:logs:
     desc: Show logs for the full local stack
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example logs -f
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env --env-file env/api.env logs -f
 
   postgres:up:
     desc: Start the local Postgres service with Docker Compose
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example up -d postgres
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env up -d postgres
 
   postgres:migrate:
     desc: Apply SQL migrations to the local Postgres service
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example exec -T postgres psql -U notes -d notes_stack < db/migrations/001_create_notes.sql
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example exec -T postgres psql -U notes -d notes_stack < db/migrations/002_enable_pgcrypto.sql
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env exec -T postgres psql -U notes -d notes_stack < db/migrations/001_create_notes.sql
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env exec -T postgres psql -U notes -d notes_stack < db/migrations/002_enable_pgcrypto.sql
 
   postgres:down:
     desc: Stop the local Postgres service
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example down
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env down
 
   postgres:logs:
     desc: Show Postgres container logs
     cmds:
-      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env.example logs -f postgres
+      - docker compose -f deploy/compose/docker-compose.yml --env-file env/postgres.env logs -f postgres
 
   api:run:
     desc: Run the local API against the local Postgres service
     dir: apps/api
-    env:
-      PORT: "8080"
-      DATABASE_URL: postgres://notes:notes@localhost:5432/notes_stack?sslmode=disable
+    dotenv:
+      - ../../env/api.env
     cmds:
       - go run ./cmd/api
 
