@@ -10,7 +10,7 @@ The first application entity is `Note`, with this initial data model:
 - `created_at: timestamp`
 - `updated_at: timestamp`
 
-Detailed design notes live in [docs/api.md](/Users/mertmutlu/Documents/GitHub/notes-stack/docs/api.md).
+Detailed design notes live in [docs/api.md](docs/api.md).
 
 The API design uses Go standard library packages where possible and a single external dependency for PostgreSQL access: `github.com/jackc/pgx/v5` at `v5.8.0`.
 
@@ -37,8 +37,8 @@ task postgres:migrate
 
 This applies:
 
-- [001_create_notes.sql](/Users/mertmutlu/Documents/GitHub/notes-stack/db/migrations/001_create_notes.sql)
-- [002_enable_pgcrypto.sql](/Users/mertmutlu/Documents/GitHub/notes-stack/db/migrations/002_enable_pgcrypto.sql)
+- [001_create_notes.sql](db/migrations/001_create_notes.sql)
+- [002_enable_pgcrypto.sql](db/migrations/002_enable_pgcrypto.sql)
 
 ### 3. Run the API
 
@@ -51,7 +51,9 @@ The API expects:
 - `PORT=8080`
 - `DATABASE_URL=postgres://notes:notes@localhost:5432/notes_stack?sslmode=disable`
 
-See [env/api.env.example](/Users/mertmutlu/Documents/GitHub/notes-stack/env/api.env.example).
+See [env/api.env.example](env/api.env.example).
+
+If you change `POSTGRES_PORT` in [env/postgres.env.example](env/postgres.env.example), update the host port in `DATABASE_URL` to match.
 
 ### 4. Verify the API
 
@@ -104,7 +106,7 @@ task postgres:down
 
 ## Local Frontend Flow
 
-The frontend is a React app built with Vite under [apps/web](/Users/mertmutlu/Documents/GitHub/notes-stack/apps/web).
+The frontend is a React app built with Vite under [apps/web](apps/web).
 
 ### 1. Install Dependencies
 
@@ -123,9 +125,9 @@ The frontend expects:
 - `VITE_API_BASE_URL=` for local development through the Vite proxy
 - `VITE_API_BASE_URL=http://localhost:8080` if you explicitly want direct API calls outside the dev proxy
 
-Vite reads local frontend env files from `apps/web`, for example [apps/web/.env.local.example](/Users/mertmutlu/Documents/GitHub/notes-stack/apps/web/.env.local.example).
+Vite reads local frontend env files from `apps/web`, for example [apps/web/.env.local.example](apps/web/.env.local.example).
 
-See also [env/web.env.example](/Users/mertmutlu/Documents/GitHub/notes-stack/env/web.env.example) for the documented variable list.
+See also [env/web.env.example](env/web.env.example) for the documented variable list.
 
 ### 3. Open the App
 
@@ -135,7 +137,7 @@ By default, Vite serves the app on `http://localhost:5173`.
 
 The full stack can also run with Docker Compose:
 
-- PostgreSQL on `localhost:5432`
+- PostgreSQL on `localhost:${POSTGRES_PORT}` with `5432` as the default
 - API on `localhost:8080`
 - Web on `http://localhost:3000`
 
